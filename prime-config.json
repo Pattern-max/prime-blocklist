@@ -1,0 +1,88 @@
+{
+    "name": "Prime Blocklist",
+    "description": "The perfect core combination for home networking!",
+    "sources": [
+        {
+            "name": "HaGeZi's Pro Blocklist",
+            "source": "https://adguardteam.github.io/HostlistsRegistry/assets/filter_48.txt"
+        },
+        {
+            "name": "HaGeZi's Threat Intelligence Feeds DNS Blocklist",
+            "source": "https://adguardteam.github.io/HostlistsRegistry/assets/filter_44.txt"
+        },
+        {
+            "name": "Dandelion Sprout's Anti-Malware List",
+            "source": "https://adguardteam.github.io/HostlistsRegistry/assets/filter_12.txt"
+        },
+        {
+            "name": "HaGeZi Native Apple",
+            "source": "https://adguardteam.github.io/HostlistsRegistry/assets/filter_67.txt"
+        },
+        {
+            "name": "HaGeZi Native Huawei",
+            "source": "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/native.huawei.txt"
+        },
+        {
+            "name": "HaGeZi Native Xiaomi",
+            "source": "https://adguardteam.github.io/HostlistsRegistry/assets/filter_60.txt"
+        },
+        {
+            "name": "HaGeZi Native Vivo",
+            "source": "https://adguardteam.github.io/HostlistsRegistry/assets/filter_65.txt"
+        },
+        {
+            "name": "HaGeZi Native Oppo-Realme",
+            "source": "https://adguardteam.github.io/HostlistsRegistry/assets/filter_66.txt"
+        },
+        {
+            "name": "HaGeZi Native WinOffice",
+            "source": "https://adguardteam.github.io/HostlistsRegistry/assets/filter_63.txt"
+        },
+        {
+            "name": "HaGeZi Native TikTok Extended",
+            "source": "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/native.tiktok.extended.txt"
+        },
+        {
+            "name": "HaGeZi's Samsung Tracker DNS Blocklist",
+            "source": "https://adguardteam.github.io/HostlistsRegistry/assets/filter_61.txt"
+        },
+        {
+            "name": "AdGuard Chinese filter (Optimized)",
+            "source": "https://filters.adtidy.org/android/filters/224_optimized.txt"
+        },
+        {
+            "name": "EasyList China",
+            "source": "https://raw.githubusercontent.com/easylist/easylistchina/master/easylistchina.txt"
+        },
+        {
+            "name": "HaGeZi's Badware Hoster Blocklist",
+            "source": "https://adguardteam.github.io/HostlistsRegistry/assets/filter_55.txt"
+        },
+        {
+            "name": "HaGeZi's DynDNS Blocklist",
+            "source": "https://adguardteam.github.io/HostlistsRegistry/assets/filter_54.txt"
+        },
+        {
+            "name": "HaGeZi's The World's Most Abused TLDs",
+            "source": "https://adguardteam.github.io/HostlistsRegistry/assets/filter_56.txt"
+        },
+        {
+            "name": "HaGeZi's URL Shortener Blocklist",
+            "source": "https://adguardteam.github.io/HostlistsRegistry/assets/filter_68.txt"
+        },
+        {
+            "name": "HaGeZi's DNS Rebind Protection",
+            "source": "https://adguardteam.github.io/HostlistsRegistry/assets/filter_71.txt"
+        },
+        {
+            "name": "NoCoin Filter List",
+            "source": "https://adguardteam.github.io/HostlistsRegistry/assets/filter_8.txt"
+        }
+    ],
+    "transformations": [
+        "RemoveComments",
+        "Validate",
+        "Compress",
+        "Deduplicate"
+    ]
+}
