@@ -1,0 +1,22 @@
+name: Update Prime Blocklist
+on:
+  schedule:
+    - cron: '0 */8 * * *'
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm install -g @adguard/hostlist-compiler
+      - run: hostlist-compiler -c prime-config.json -o prime-blocklist.txt
+      - run: echo "Last run: $(date -u)" > last-updated.txt
+      - run: git config user.name "github-actions[bot]"
+      - run: git config user.email "github-actions[bot]@users.noreply.github.com"
+      - run: git add prime-blocklist.txt last-updated.txt
+      - run: git diff --quiet --cached || (git commit -m "Auto-update [ci skip]" && git push)
