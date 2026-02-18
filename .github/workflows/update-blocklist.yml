@@ -1,40 +1,29 @@
 name: Update Prime Blocklist
-
 on:
   schedule:
     - cron: '0 */8 * * *'
   workflow_dispatch:
-
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '20'
-
-      - name: Install hostlist-compiler
-        run: npm install -g @adguard/hostlist-compiler
-
-      - name: Compile blocklist
-        run: hostlist-compiler -c prime-config.json -o prime-blocklist.txt
-
-      - name: Update timestamp
-        run: echo "Last run: $(date -u)" > last-updated.txt
-
-      - name: Commit and push
+      - run: npm install -g @adguard/hostlist-compiler
+      - run: hostlist-compiler -c prime-config.json -o prime-blocklist.txt
+      - run: echo "Last run: $(date -u)" > last-updated.txt
+      - run: git config user.name "github-actions[bot]"
+      - run: git config user.email "github-actions[bot]@users.noreply.github.com"
+      - run: git add prime-blocklist.txt last-updated.txt
+      - name: Commit if changed
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add prime-blocklist.txt last-updated.txt
-          if ! git diff --quiet --cached; then
-            git commit -m "Auto-update blocklist and timestamp [skip ci]"
+          if git diff --quiet --cached; then
+            echo "No changes"
+          else
+            git commit -m "Auto-update [ci skip]"
             git push
           fi
