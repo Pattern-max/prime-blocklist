@@ -2,7 +2,6 @@ name: Update Prime Blocklist
 
 on:
   schedule:
-    # 每 8 小时运行一次（UTC 时间）
     - cron: '0 */8 * * *'
   workflow_dispatch:
 
@@ -30,15 +29,22 @@ jobs:
       - name: Update timestamp file
         run: echo "Last run: $(date -u)" > last-updated.txt
 
-      - name: Commit and push changes
+      - name: Stage files
+        run: git add prime-blocklist.txt last-updated.txt
+
+      - name: Check for changes
+        id: git-check
+        run: |
+          if git diff --quiet --staged; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit and push if changed
+        if: steps.git-check.outputs.changed == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add prime-blocklist.txt last-updated.txt
-          # 检查是否有文件变更
-          if git diff --quiet && git diff --staged --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "Auto-update blocklist and timestamp [skip ci]"
-            git push
-          fi
+          git commit -m "Auto-update blocklist and timestamp [skip ci]"
+          git push
