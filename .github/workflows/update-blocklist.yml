@@ -26,25 +26,15 @@ jobs:
       - name: Compile blocklist
         run: hostlist-compiler -c prime-config.json -o prime-blocklist.txt
 
-      - name: Update timestamp file
+      - name: Update timestamp
         run: echo "Last run: $(date -u)" > last-updated.txt
 
-      - name: Stage files
-        run: git add prime-blocklist.txt last-updated.txt
-
-      - name: Check for changes
-        id: git-check
-        run: |
-          if git diff --quiet --staged; then
-            echo "changed=false" >> $GITHUB_OUTPUT
-          else
-            echo "changed=true" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Commit and push if changed
-        if: steps.git-check.outputs.changed == 'true'
+      - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git commit -m "Auto-update blocklist and timestamp [skip ci]"
-          git push
+          git add prime-blocklist.txt last-updated.txt
+          if ! git diff --quiet --cached; then
+            git commit -m "Auto-update blocklist and timestamp [skip ci]"
+            git push
+          fi
